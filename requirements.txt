@@ -5,3 +5,4 @@ scikit-learn
 joblib
 streamlit
 plotly
+yfinance==0.2.30
