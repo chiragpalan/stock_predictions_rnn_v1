@@ -97,8 +97,9 @@ def load_and_plot_data(selected_table):
         xaxis_rangeslider_visible=False,
         xaxis=dict(
             tickformat='%Y-%m-%d %H:%M',
-            tickmode='linear',
-            showgrid=True
+            tickmode='auto',
+            showgrid=True,
+            type='date'
         ),
         yaxis=dict(
             showgrid=True
