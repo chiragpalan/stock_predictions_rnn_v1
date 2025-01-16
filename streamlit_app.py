@@ -89,6 +89,12 @@ def load_and_plot_data(selected_table):
     filtered_actual_df = filtered_actual_df[(filtered_actual_df['Time'] >= time_range[0]) & (filtered_actual_df['Time'] <= time_range[1])]
     filtered_pred_df = filtered_pred_df[(filtered_pred_df['Time'] >= time_range[0]) & (filtered_pred_df['Time'] <= time_range[1])]
 
+    # Combine date and time filters for the x-axis
+    filtered_actual_df = filtered_actual_df[(filtered_actual_df['Datetime'].between(date_range[0], date_range[1])) &
+                                            (filtered_actual_df['Time'].between(time_range[0], time_range[1]))]
+    filtered_pred_df = filtered_pred_df[(filtered_pred_df['Datetime'].between(date_range[0], date_range[1])) &
+                                         (filtered_pred_df['Time'].between(time_range[0], time_range[1]))]
+
     # Plot the candlestick chart using Plotly
     fig = go.Figure()
 
