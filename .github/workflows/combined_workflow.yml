@@ -64,6 +64,7 @@ jobs:
             echo "Prediction database found."
             git config --global user.name "GitHub Actions"
             git config --global user.email "github-actions@github.com"
+            git pull origin main
             git add predictions/predictions.db
             git commit -m "Update prediction database"
             git push
