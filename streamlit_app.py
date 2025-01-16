@@ -3,6 +3,9 @@ import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
 
+# Set page configuration for a better layout
+st.set_page_config(layout="wide")
+
 # Function to fetch table names from the database
 def fetch_table_names(db_path):
     conn = sqlite3.connect(db_path)
@@ -104,6 +107,7 @@ def load_and_plot_data(selected_table):
         yaxis=dict(
             showgrid=True
         ),
+        width=1200,  # Set width to fit 12 inches on your screen
         height=600
     )
 
