@@ -2,6 +2,7 @@ import sqlite3
 import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
+from datetime import datetime
 
 # Set page configuration for a better layout
 st.set_page_config(layout="wide")
@@ -63,9 +64,11 @@ def load_and_plot_data(selected_table):
     combined_df = pd.concat([actual_df, pred_df])
     combined_df.sort_values(by='Datetime', inplace=True)
 
+    # Convert Timestamps to datetime objects for Streamlit slider
+    min_datetime = combined_df['Datetime'].min().to_pydatetime()
+    max_datetime = combined_df['Datetime'].max().to_pydatetime()
+
     # Streamlit slider for x-axis date and time range selection
-    min_datetime = combined_df['Datetime'].min()
-    max_datetime = combined_df['Datetime'].max()
     datetime_range = st.slider(
         "Select Date and Time Range",
         min_value=min_datetime,
