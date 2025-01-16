@@ -70,9 +70,13 @@ def load_and_plot_data(selected_table):
         format="YYYY-MM-DD"
     )
 
+    # Convert date_range to datetime64 for comparison
+    date_range_start = pd.to_datetime(date_range[0])
+    date_range_end = pd.to_datetime(date_range[1])
+
     # Filter data based on the selected date range from the slider
-    filtered_actual_df = actual_df[(actual_df['Datetime'].dt.date >= date_range[0]) & (actual_df['Datetime'].dt.date <= date_range[1])]
-    filtered_pred_df = pred_df[(pred_df['Datetime'].dt.date >= date_range[0]) & (pred_df['Datetime'].dt.date <= date_range[1])]
+    filtered_actual_df = actual_df[(actual_df['Datetime'] >= date_range_start) & (actual_df['Datetime'] <= date_range_end)]
+    filtered_pred_df = pred_df[(pred_df['Datetime'] >= date_range_start) & (pred_df['Datetime'] <= date_range_end)]
 
     # Streamlit slider for time range selection
     min_time = pd.to_datetime('09:15').time()
@@ -88,12 +92,6 @@ def load_and_plot_data(selected_table):
     # Filter data based on the selected time range from the slider
     filtered_actual_df = filtered_actual_df[(filtered_actual_df['Time'] >= time_range[0]) & (filtered_actual_df['Time'] <= time_range[1])]
     filtered_pred_df = filtered_pred_df[(filtered_pred_df['Time'] >= time_range[0]) & (filtered_pred_df['Time'] <= time_range[1])]
-
-    # Combine date and time filters for the x-axis
-    filtered_actual_df = filtered_actual_df[(filtered_actual_df['Datetime'].between(date_range[0], date_range[1])) &
-                                            (filtered_actual_df['Time'].between(time_range[0], time_range[1]))]
-    filtered_pred_df = filtered_pred_df[(filtered_pred_df['Datetime'].between(date_range[0], date_range[1])) &
-                                         (filtered_pred_df['Time'].between(time_range[0], time_range[1]))]
 
     # Plot the candlestick chart using Plotly
     fig = go.Figure()
