@@ -104,11 +104,11 @@ def load_and_plot_data(selected_table):
         yaxis=dict(
             showgrid=True
         ),
-        width=1800,
+        width=1800,  # Increased width of the chart
         height=600
     )
 
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)  # Use container width to ensure the chart uses full width
 
 # Load and display the data when a table is selected
 if selected_table:
