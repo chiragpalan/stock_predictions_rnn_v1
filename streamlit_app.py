@@ -25,7 +25,7 @@ table_options = list(set(actual_tables) & set([t.replace('_predictions', '') for
 # Create the dropdown menu for table selection
 selected_table = st.selectbox("Select Table", table_options)
 
-# Function to load the selected table's data and plot the candlestick chart
+# Function to load the selected table's data and plot the box plot
 def load_and_plot_data(selected_table):
     # Connect to the databases
     actual_conn = sqlite3.connect(actual_db_path)
@@ -70,40 +70,28 @@ def load_and_plot_data(selected_table):
     filtered_actual_df = actual_df[(actual_df['Datetime'].dt.date >= date_range[0]) & (actual_df['Datetime'].dt.date <= date_range[1])]
     filtered_pred_df = pred_df[(pred_df['Datetime'].dt.date >= date_range[0]) & (pred_df['Datetime'].dt.date <= date_range[1])]
 
-    # Plot the candlestick chart using Plotly
+    # Plot the box plot using Plotly
     fig = go.Figure()
 
     # Add actual data to the chart
-    fig.add_trace(go.Candlestick(
+    fig.add_trace(go.Box(
         x=filtered_actual_df['Datetime'],
-        open=filtered_actual_df['Open'],
-        high=filtered_actual_df['High'],
-        low=filtered_actual_df['Low'],
-        close=filtered_actual_df['Close'],
+        y=filtered_actual_df['Close'],
         name='Actual Data',
-        increasing_line_color='green',
-        decreasing_line_color='red',
-        increasing_fillcolor='rgba(0,255,0,0.2)',
-        decreasing_fillcolor='rgba(255,0,0,0.2)',
+        marker_color='green'
     ))
 
     # Add predicted data to the chart
-    fig.add_trace(go.Candlestick(
+    fig.add_trace(go.Box(
         x=filtered_pred_df['Datetime'],
-        open=filtered_pred_df['Predicted_Open'],
-        high=filtered_pred_df['Predicted_High'],
-        low=filtered_pred_df['Predicted_Low'],
-        close=filtered_pred_df['Predicted_Close'],
+        y=filtered_pred_df['Predicted_Close'],
         name='Predicted Data',
-        increasing_line_color='blue',
-        decreasing_line_color='orange',
-        increasing_fillcolor='rgba(0,0,255,0.2)',
-        decreasing_fillcolor='rgba(255,165,0,0.2)',
+        marker_color='blue'
     ))
 
     # Update layout for better visuals
     fig.update_layout(
-        title=f"Candlestick Chart for {selected_table}",
+        title=f"Box Plot for {selected_table}",
         xaxis_title="Datetime",
         yaxis_title="Price",
         xaxis_rangeslider_visible=False,
