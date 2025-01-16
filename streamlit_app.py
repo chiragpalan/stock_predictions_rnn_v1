@@ -44,8 +44,8 @@ def load_and_plot_data(selected_table):
     pred_df = pred_df.drop_duplicates(subset=['Datetime'], keep='last')
 
     # Streamlit slider for date range selection
-    min_date = actual_df['Datetime'].min().date()
-    max_date = actual_df['Datetime'].max().date()
+    min_date = pred_df['Datetime'].min().date()
+    max_date = pred_df['Datetime'].max().date()
     date_range = st.slider(
         "Select Date Range",
         min_value=min_date,
