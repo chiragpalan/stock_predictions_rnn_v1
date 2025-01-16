@@ -104,7 +104,6 @@ def load_and_plot_data(selected_table):
         yaxis=dict(
             showgrid=True
         ),
-        width=1800,  # Increased width of the chart
         height=600
     )
 
