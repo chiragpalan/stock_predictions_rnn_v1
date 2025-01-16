@@ -86,8 +86,8 @@ def load_and_plot_data(selected_table):
     )
 
     # Filter data based on the selected time range from the slider
-    filtered_actual_df = filtered_actual_df[(filtered_actual_df['Time'] >= time_range) & (filtered_actual_df['Time'] <= time_range)]
-    filtered_pred_df = filtered_pred_df[(filtered_pred_df['Time'] >= time_range) & (filtered_pred_df['Time'] <= time_range)]
+    filtered_actual_df = filtered_actual_df[(filtered_actual_df['Time'] >= time_range[0]) & (filtered_actual_df['Time'] <= time_range[1])]
+    filtered_pred_df = filtered_pred_df[(filtered_pred_df['Time'] >= time_range[0]) & (filtered_pred_df['Time'] <= time_range[1])]
 
     # Plot the candlestick chart using Plotly
     fig = go.Figure()
