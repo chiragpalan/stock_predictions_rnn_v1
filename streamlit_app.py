@@ -46,6 +46,15 @@ def load_and_plot_data(selected_table):
     actual_df = actual_df.drop_duplicates(subset=['Datetime'], keep='last')
     pred_df = pred_df.drop_duplicates(subset=['Datetime'], keep='last')
 
+    # Filter data to only include stock market open hours
+    market_open = actual_df['Datetime'].dt.time >= pd.to_datetime('09:15').time()
+    market_close = actual_df['Datetime'].dt.time <= pd.to_datetime('15:30').time()
+    actual_df = actual_df[market_open & market_close]
+
+    pred_open = pred_df['Datetime'].dt.time >= pd.to_datetime('09:15').time()
+    pred_close = pred_df['Datetime'].dt.time <= pd.to_datetime('15:30').time()
+    pred_df = pred_df[pred_open & pred_close]
+
     # Streamlit slider for date range selection
     min_date = pred_df['Datetime'].min().date()
     max_date = pred_df['Datetime'].max().date()
